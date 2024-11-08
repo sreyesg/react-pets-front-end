@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const [petList, setPetList] = useState([])
+  const [selected, setSelected] = useState(null)
   useEffect(()=>{
     const fetchPets = async() => {
       try {
@@ -21,10 +22,12 @@ function App() {
     fetchPets()
   },[])
   
-
+  const updateSelected = (pet) => {
+    setSelected(pet)
+  }
   return (
     <>
-      <PetList petList={petList}/>
+      <PetList petList={petList} updateSelected={updateSelected}/>
     </>
   )
 }
