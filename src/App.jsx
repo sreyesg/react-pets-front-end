@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as petService from "./services/petService"
+import PetList from './components/PetList'
+
 import './App.css'
 
 function App() {
@@ -22,7 +24,7 @@ function App() {
 
   return (
     <>
-      <h1>Hello Archie</h1>
+      <PetList petList={petList}/>
     </>
   )
 }
