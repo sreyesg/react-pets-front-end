@@ -46,6 +46,27 @@ function App() {
     }
   }
   
+  const handleUpdatePet = async(formData, petId) => {
+    try {
+      const updatedPet = await petService.update(formData, petId)
+      if(updatedPet.error){
+        throw new Error(updatedPet.error)
+      }
+  
+      const updatedPetList = petList.map((pet) => pet._id !== updatedPet._id ? pet:updatedPet)
+      setPetList(updatedPetList)
+      setSelected(updatedPet)
+      setIsFormOpen(false)
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+
+  // MAIN RETURN CONTEXT
   return (
     <>
       <PetList 
@@ -54,7 +75,7 @@ function App() {
       handleFormView={handleFormView}
       isFormOpen={isFormOpen}
       />
-      {isFormOpen ? (<PetForm handleAddPet={handleAddPet} selected={selected}/>):(<PetDetails selected={selected} handleFormView={handleFormView}/>)}
+      {isFormOpen ? (<PetForm handleAddPet={handleAddPet} selected={selected} handleUpdatePet={handleUpdatePet}/>):(<PetDetails selected={selected} handleFormView={handleFormView}/>)}
       
     </>
   )
