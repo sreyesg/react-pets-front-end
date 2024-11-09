@@ -7,6 +7,7 @@ import './App.css'
 function App() {
   const [petList, setPetList] = useState([])
   const [selected, setSelected] = useState(null)
+  const [isFormOpen, setIsFormOpen] = useState(false)
   useEffect(()=>{
     const fetchPets = async() => {
       try {
@@ -25,9 +26,18 @@ function App() {
   const updateSelected = (pet) => {
     setSelected(pet)
   }
+
+  const handleFormView = () => {
+    setIsFormOpen(!isFormOpen )
+  }
   return (
     <>
-      <PetList petList={petList} updateSelected={updateSelected}/>
+      <PetList 
+      petList={petList} 
+      updateSelected={updateSelected}
+      handleFormView={handleFormView}
+      isFormOpen={isFormOpen}
+      />
       <PetDetails selected={selected}/>
     </>
   )
