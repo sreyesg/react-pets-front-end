@@ -12,16 +12,20 @@ const PetForm = (props) => {
       
   }
   
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState(intialState);
 
   // handleChange function to update formData state
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
-
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
+    props.handleAddPet(formData)
+    setFormData(intialState)
+  }
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="name"> Name </label>
         <input
           id="name"

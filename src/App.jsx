@@ -3,6 +3,7 @@ import * as petService from "./services/petService"
 import PetList from './components/PetList'
 import PetDetails from './components/PetDetails'
 import './App.css'
+import PetForm from './components/PetForm'
 
 function App() {
   const [petList, setPetList] = useState([])
@@ -28,8 +29,22 @@ function App() {
   }
 
   const handleFormView = () => {
-    setIsFormOpen(!isFormOpen )
+    setIsFormOpen(!isFormOpen)
   }
+  const handleAddPet = async(formData) => {
+    try {
+      const newPet = await petService.create(formData)
+      if(newPet.error){
+        throw new Error(newPet.error)
+      }
+  
+      setPetList([newPet, ...petList])
+      setIsFormOpen(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
   return (
     <>
       <PetList 
@@ -38,7 +53,8 @@ function App() {
       handleFormView={handleFormView}
       isFormOpen={isFormOpen}
       />
-      <PetDetails selected={selected}/>
+      {isFormOpen ? (<PetForm handleAddPet={handleAddPet}/>):(<PetDetails selected={selected}/>)}
+      
     </>
   )
 }
