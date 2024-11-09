@@ -6,7 +6,7 @@ const  PetList = (props) =>  {
         </a>
 
     ))
-    console.log("this one",pets)
+    
     return(
         <div>
         <h1>Pet List</h1>

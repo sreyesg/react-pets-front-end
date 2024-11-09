@@ -28,7 +28,8 @@ function App() {
     setSelected(pet)
   }
 
-  const handleFormView = () => {
+  const handleFormView = (pet) => {
+    if(!pet.name) setSelected(null)
     setIsFormOpen(!isFormOpen)
   }
   const handleAddPet = async(formData) => {
@@ -53,7 +54,7 @@ function App() {
       handleFormView={handleFormView}
       isFormOpen={isFormOpen}
       />
-      {isFormOpen ? (<PetForm handleAddPet={handleAddPet}/>):(<PetDetails selected={selected}/>)}
+      {isFormOpen ? (<PetForm handleAddPet={handleAddPet} selected={selected}/>):(<PetDetails selected={selected} handleFormView={handleFormView}/>)}
       
     </>
   )

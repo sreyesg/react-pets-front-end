@@ -12,7 +12,7 @@ const PetForm = (props) => {
       
   }
   
-  const [formData, setFormData] = useState(intialState);
+  const [formData, setFormData] = useState(props.selected ? props.selected:intialState);
 
   // handleChange function to update formData state
   const handleChange = (evt) => {
@@ -21,7 +21,7 @@ const PetForm = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault()
     props.handleAddPet(formData)
-    setFormData(intialState)
+    
   }
   return (
     <div>
@@ -48,7 +48,7 @@ const PetForm = (props) => {
           value={formData.breed}
           onChange={handleChange}
         />
-        <button type="submit">Add New Pet</button>
+        <button type="submit">{props.selected ? 'Update Pet':"Add New Pet"}</button>
       </form>
     </div>
   );
