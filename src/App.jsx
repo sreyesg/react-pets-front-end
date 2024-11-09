@@ -63,7 +63,22 @@ function App() {
     }
 
   }
-
+  const handleRemovePet = async(petId) => {
+    
+    try {
+      const deletedPet = await petService.deletePet(petId)
+      if(deletedPet.error){
+        throw new Error(deletedPet.error)
+      }
+      
+      setPetList(petList.filter((pet) => pet.id !== deletedPet._id))
+      setSelected(null)
+      setIsFormOpen(false)
+      
+    }catch (error) {
+      console.log(error)
+    }
+  }
 
 
   // MAIN RETURN CONTEXT
@@ -75,7 +90,20 @@ function App() {
       handleFormView={handleFormView}
       isFormOpen={isFormOpen}
       />
-      {isFormOpen ? (<PetForm handleAddPet={handleAddPet} selected={selected} handleUpdatePet={handleUpdatePet}/>):(<PetDetails selected={selected} handleFormView={handleFormView}/>)}
+      
+      {isFormOpen ? (
+        <PetForm handleAddPet={handleAddPet} 
+        selected={selected} 
+        handleUpdatePet={handleUpdatePet}
+        
+        />
+        ):(
+        <PetDetails 
+        selected={selected} 
+        handleFormView={handleFormView}
+        handleRemovePet={handleRemovePet}
+        />
+        )}
       
     </>
   )
